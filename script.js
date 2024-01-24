@@ -1,13 +1,12 @@
 let board;
-let boardwidth=360;
-let boardheight=640;
+let boardwidth=1240;
+let boardheight=610;
 let context;
 
-let birdwidth=40;
-let birdheight=40;
-let birdx=boardwidth/8;
+let birdwidth=50;
+let birdheight=50;
+let birdx=boardwidth/2;
 let birdy=boardheight/2;
-//console.log(birdY);
 let birdimg;
 let bird={
     x : birdx,
@@ -15,6 +14,8 @@ let bird={
     width : birdwidth,
     height : birdheight
 }
+
+let isGameActive=false;
 
 let pipearray=[];
 let pipewidth=64;
@@ -35,22 +36,35 @@ let score=0;
 
 window.onload=function()
 {
-   board = document.getElementById("board");
-   board.height = boardheight;
-   board.width = boardwidth;
-   context = board.getContext("2d");
+    board = document.getElementById("board");
+    board.height = boardheight;
+    board.width = boardwidth;
+    context = board.getContext("2d");
+    context.font="bold 60px courier"
+    context.fillStyle = "Red";
+    context.shadowColor = "rgba(0,0,0,0.3)";
+    context.shadowBlur = 50; 
+    context.lineWidth = 3
+    context.strokeStyle = 'white';
+    context.strokeText("Start Game", 450, 305);
+    context.fillText("Start Game", 450, 305);
+    isGameActive=true;  
+    document.addEventListener("click", startGame);
+}
 
+function startGame()
+{
    birdimg=new Image();
    birdimg.src="flappybird.png";
    birdimg.onload=function(){
        context.drawImage(birdimg, bird.x, bird.y, bird.width, bird.height);
    }
-
    toppipeimg=new Image();
    toppipeimg.src="toppipe.png";
    bottompipeimg=new Image();
    bottompipeimg.src="bottompipe.png";
 
+   if(isGameActive)
    requestAnimationFrame(update);
    setInterval(placepipes,1500);
 
@@ -101,7 +115,15 @@ function update()
 
     if(gameover)
     {
-        context.fillText("Game Over", 5, 90);
+        context.font="bold 60px courier"
+        context.fillStyle = "Red";
+        context.shadowColor = "rgba(0,0,0,0.3)";
+        context.shadowBlur = 50; 
+        context.lineWidth = 3
+        context.strokeStyle = 'white';
+        context.strokeText("Game Over", 450, 305);
+        context.fillText("Game Over", 450, 305);  
+        isGameActive=false;   
     }
 }
 

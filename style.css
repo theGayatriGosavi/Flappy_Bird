@@ -3,5 +3,5 @@ body{
     text-align: center;
 }
 #board{
-    background-image: url(bg_img.png);
+  background-image: url(bg_img.png);  
 }
